@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tez Listesi</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            padding: 2em 5%;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4 text-center">Tez Listesi</h1>
+
+        <ul>
+            {% for tez in tezler %}
+                <li class="border p-3 rounded mb-2">
+                    <strong>{{ tez.baslik }}</strong> - {{ tez.yazar }} 
+                    <div class="mt-2">
+                        <a href="{{ tez.dosya.url }}" class="btn btn-primary btn-sm">Orjinal Dosya</a>
+                        {% if tez.dosya_converted %}
+                            <a href="{{ tez.dosya_converted.url }}" class="btn btn-success btn-sm">Dönüştürülmüş Dosya</a>
+                        {% endif %}
+                        <a href="{% url 'delete_tez' tez.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Bootstrap JS and jQuery (optional, but included here for Bootstrap components that need it) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Yüklediğiniz Tezler</h2>
+  
+  <!-- Tez yükleme sayfasına bağlantıyı ekleyerek bu satırı direkt olarak kopyalayıp kullanabilirsiniz. -->
+  <a href="{% url 'tez_yukle' %}" class="btn btn-primary">Yeni Tez Yükle</a>
+  
+  <ul>
+    {% for tez in tezler %}
+      <li>
+        {{ tez.title }} - 
+        <a href="{{ tez.dosya.url }}" target="_blank">Tezi İndir</a> -
+        <a href="{{ tez.dosya_converted.url }}" target="_blank">Düzenlenmiş Tezi İndir</a> -
+        <a href="{% url 'delete_tez' tez.id %}">Tezi Sil</a>
+      </li>
+    {% empty %}
+      <li>Henüz yüklediğiniz bir tez bulunmamaktadır.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
